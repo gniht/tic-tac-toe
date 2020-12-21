@@ -1,6 +1,7 @@
 const playerX = {name: "AI", boardPiece: "x"};
 const playerO = {name: "AI", boardPiece: "o"};
-let activePlayer = playerX;
+let activePlayer;
+let whoMoves = document.createElement("h2");
 let gameboard;
 
 const gameWindow = document.createElement("div");
@@ -29,17 +30,22 @@ startMenu.addEventListener("click", e => {
   if(e.target.innerText === "Start"  && 
     (playerX.name != "AI" || playerO.name != "AI")){
       startMenu.remove();
-      gameboard = initializeGameboard();      
+      gameboard = initializeGameboard();            
       gameboard.forEach(cell => {
         gameWindow.append(cell);        
-      });      
+      });
+      document.body.append(whoMoves);
+      whoMoves.innerText = `${activePlayer.name} to move.`;      
       document.body.append(gameWindow);
       gameWindow.addEventListener("click", e =>{
         e.target.innerText = activePlayer.boardPiece;
+        
         if(activePlayer === playerX){
           activePlayer = playerO;
+          whoMoves.innerText = `${activePlayer.name}'s Turn.`;          
         }else if(activePlayer === playerO){
           activePlayer = playerX;
+          whoMoves.innerText = `${activePlayer.name}'s Turn.`;
         }
       });      
     }
@@ -55,6 +61,7 @@ startMenu.addEventListener("click", e => {
 
 function initializeGameboard(){
   let gameboard = [];
+  activePlayer = playerX;
   for(let i = 0; i < 9; i++){
     let temp = document.createElement("div");
     temp.setAttribute("id", `${i}`);
