@@ -1,8 +1,12 @@
 .gameboard {
+  margin: 0;
+  padding: 0;  
   width: 100px;
   height: 100px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;  
+  display: grid;  
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+   
 }
 button {
   margin: 5px;
@@ -10,6 +14,7 @@ button {
 }
 
 .cell {
+  border:1px solid blueviolet;
   width: 30px;
   height: 30px;
   background-color: ivory;
