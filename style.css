@@ -14,6 +14,8 @@ button {
 }
 
 .cell {
+  font-size: 25px;
+  text-align: center;  
   border:1px solid blueviolet;
   width: 30px;
   height: 30px;

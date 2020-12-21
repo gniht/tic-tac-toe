@@ -38,6 +38,9 @@ startMenu.addEventListener("click", e => {
       whoMoves.innerText = `${activePlayer.name} to move.`;      
       document.body.append(gameWindow);
       gameWindow.addEventListener("click", e =>{
+        if(e.target.innerText){
+          return undefined;
+        }
         e.target.innerText = activePlayer.boardPiece;
         
         if(activePlayer === playerX){
