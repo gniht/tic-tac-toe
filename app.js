@@ -3,6 +3,7 @@ const playerO = {name: "AI", boardPiece: "o"};
 let activePlayer;
 let whoMoves = document.createElement("h2");
 let gameboard;
+let test;
 
 const gameWindow = document.createElement("div");
 gameWindow.classList.add("gameboard");
@@ -38,18 +39,25 @@ startMenu.addEventListener("click", e => {
       whoMoves.innerText = `${activePlayer.name} to move.`;      
       document.body.append(gameWindow);
       gameWindow.addEventListener("click", e =>{
-        if(e.target.innerText){
+        
+        if(e.target.innerText || test){
           return undefined;
         }
-        e.target.innerText = activePlayer.boardPiece;
+        e.target.innerText = activePlayer.boardPiece;        
         
+        test = checkStatus(gameboard);
+        if(test){
+          whoMoves.innerText = `${test}`;
+          return undefined;
+        }                    
+      
         if(activePlayer === playerX){
           activePlayer = playerO;
           whoMoves.innerText = `${activePlayer.name}'s Turn.`;          
         }else if(activePlayer === playerO){
           activePlayer = playerX;
           whoMoves.innerText = `${activePlayer.name}'s Turn.`;
-        }
+        }        
       });      
     }
 });
@@ -76,8 +84,37 @@ function initializeGameboard(){
 
 // function renderGame(){}
 
-function checkStatus(gameboard){
-
+function checkStatus(gameboard){  
+  let trios = [
+    [gameboard[0], gameboard[1], gameboard[2]],
+    [gameboard[3], gameboard[4], gameboard[5]], 
+    [gameboard[6], gameboard[7], gameboard[8]],
+    [gameboard[0], gameboard[3], gameboard[6]],
+    [gameboard[1], gameboard[4], gameboard[7]],
+    [gameboard[2], gameboard[5], gameboard[8]],
+    [gameboard[0], gameboard[4], gameboard[8]],
+    [gameboard[2], gameboard[4], gameboard[6]],
+  ];
+  let status = "";
+  let count = 0;
+  trios.forEach(trio => {        
+    let box1 = trio[0].innerText;
+    let box2 = trio[1].innerText;
+    let box3 = trio[2].innerText;
+    if(box1 && box2 && box3){
+      count++;
+      if(box1 === box2 && box2 === box3){
+        status = `${box1} wins`;
+        return status;
+      }
+    }
+    if(count === 8 && !status){
+      status = "Tie game"
+      return status;
+    }
+    return status;    
+  });
+  return status;
 }
 
 // function toggleActivePlayer(){}
