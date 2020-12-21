@@ -1,5 +1,6 @@
 const playerX = {name: "AI", boardPiece: "x"};
 const playerO = {name: "AI", boardPiece: "o"};
+let activePlayer = playerX;
 let gameboard;
 
 const gameWindow = document.createElement("div");
@@ -32,17 +33,25 @@ startMenu.addEventListener("click", e => {
       gameboard.forEach(cell => {
         gameWindow.append(cell);        
       });      
-      document.body.append(gameWindow);      
+      document.body.append(gameWindow);
+      gameWindow.addEventListener("click", e =>{
+        e.target.innerText = activePlayer.boardPiece;
+        if(activePlayer === playerX){
+          activePlayer = playerO;
+        }else if(activePlayer === playerO){
+          activePlayer = playerX;
+        }
+      });      
     }
 });
 
 
 
 
-// Do I need a game object? {gameboard: [], playerX, playerO};
+// Should I use a game object? {gameboard: [], playerX, playerO};
 
 
-function getMove(){}
+// function getMove(){}
 
 function initializeGameboard(){
   let gameboard = [];
